@@ -1,11 +1,22 @@
 <template>
     <div class="phone-body">
-        Phone body
+        <div class="feed">
+            <vuegram-post v-for="(post, index) in posts" :post="post" :key="index"/>
+        </div>
     </div>
 </template>
-<script>
+<script>  
+  import VuegramPost from './VuegramPost.vue'
+  
   export default {
-    name: 'PhoneBody'
+    name: 'PhoneBody',
+    props: {
+      posts: Array,
+      filters: Array
+    },
+    components: {
+      VuegramPost
+    }
   }
 </script>
 
