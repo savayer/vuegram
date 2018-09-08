@@ -3,9 +3,9 @@
     <div class="app-phone">
       <div class="phone-header">
         <img src="./images/vue_gram_logo_cp.png" />
-        <div v-if="step !== 1" class="cancel-cta">Cancel</div>
-        <div v-if="step === 2" class="next-cta">Next</div>
-        <div v-if="step === 3" class="share-cta">Share</div>
+        <div v-if="step !== 1" class="cancel-cta" @click="goToHome">Cancel</div>
+        <div v-if="step === 2" class="next-cta" @click="step++">Next</div>
+        <div v-if="step === 3" class="next-cta" @click="sharePost">Share</div>
       </div>
       <phone-body 
         :posts="posts"
@@ -17,11 +17,11 @@
       />
       <div class="phone-footer">
         <div class="home-cta">
-        <i class="fas fa-home fa-lg"></i>
+        <i class="fas fa-home fa-lg" @click="goToHome"></i>
        </div>
        <div class="upload-cta">
           <input type="file" id="file" class="inputfile" name="file"
-                 @change="uploadImage">
+                 @change="uploadImage" :disabled="step !== 1">
           <label for="file">
             <i class="far fa-plus-square fa-lg"></i>
           </label>          
@@ -68,6 +68,25 @@
         };
 
         document.querySelector("#file").value = "";
+      },
+      goToHome() {
+        this.image = '';
+        this.selectedFilter = '';
+        this.caption = '';
+        this.step = 1;
+      },
+      sharePost() {
+        const post = {
+          username: 'anonim',
+          userImage: 'https://igconf.ru/2017/img/logo_anonim.png',
+          postImage: this.image,
+          likes: 0,
+          hasBeenLiked: false,
+          caption: this.caption,
+          filter: this.selectedFilter
+        };
+        this.posts.unshift(post);
+        this.goToHome();
       }
     },
     components: {
