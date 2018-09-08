@@ -10,11 +10,14 @@
     </div>
     <div class="image-container"
       :class="post.filter"
-      :style="{ backgroundImage: 'url(' + post.postImage + ')' }">
+      :style="{ backgroundImage: 'url(' + post.postImage + ')' }"
+      @dblclick="likePost">
     </div>
     <div class="content">
       <div class="heart">
-        <i :class="likePostClass" @click="likePost"></i>
+        <i class="far fa-heart fa-lg"  
+            :class="{ 'fas': this.post.hasBeenLiked }"
+            @click="likePost"></i>
       </div>
       <p class="likes">{{ post.likes }} likes</p>
       <p class="caption"><span>{{ post.username }}</span> {{ post.caption }}</p>
@@ -28,21 +31,12 @@
     props: {
         post: Object
     },
-    computed: {
-        likePostClass() {
-            return this.post.hasBeenLiked ? 'far fa-heart fa-lg fas' : 'far fa-heart fa-lg'
-        }
-    },
     methods: {
-        likePost() {
-            if (this.post.hasBeenLiked) {
-                this.post.hasBeenLiked = false;
-                this.post.likes--;
-            } else {
-                this.post.hasBeenLiked = true;
-                this.post.likes++;
-            }
-            
+        likePost() {            
+            this.post.hasBeenLiked 
+                ? this.post.likes--
+                : this.post.likes++;
+            this.post.hasBeenLiked = !this.post.hasBeenLiked;            
         }
     }
   }
