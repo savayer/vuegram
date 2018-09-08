@@ -33,6 +33,7 @@
 
 <script>
   import PhoneBody from "./components/PhoneBody.vue";
+  import EventBus from "./event-bus.js";
 
   import posts from './data/posts'
   import filters from './data/filters'
@@ -48,6 +49,11 @@
         image: '',
         caption: ''
       }
+    },
+    created() {
+      EventBus.$on("filter-selected", evt => {
+        this.selectedFilter = evt.filter;
+      });
     },
     methods: {
       uploadImage(e) {
