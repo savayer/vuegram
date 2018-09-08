@@ -4,7 +4,9 @@
       <div class="phone-header">
         <img src="./images/vue_gram_logo_cp.png" />
       </div>
-      <phone-body />
+      <phone-body 
+        :posts="posts"
+        :filtes="filters" />
       <div class="phone-footer">
         <div class="home-cta">
         <i class="fas fa-home fa-lg"></i>
@@ -20,10 +22,19 @@
 <script>
   import PhoneBody from "./components/PhoneBody.vue";
 
+  import posts from './data/posts'
+  import filters from './data/filters'
+
   export default {
     name: "app",
     components: {
       PhoneBody
+    },
+    data() {
+      return {
+        posts,
+        filters
+      }
     }
   };
 </script>
