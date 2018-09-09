@@ -58,7 +58,8 @@
         selectedFilter: '',
         image: '',
         caption: '',
-        username: ''
+        username: '',
+        errors: []
       }
     },
     created() {
@@ -99,8 +100,14 @@
           caption: this.caption,
           filter: this.selectedFilter
         };
+        const body = JSON.stringify(post);
+        
         this.posts.unshift(post);
         this.goToHome();
+
+        axios.post('http://p.vuegram.savayer.space', body)
+          .then(response => {})
+          .catch(e => { this.errors.push(e) })
       }
     },
     mounted() {
