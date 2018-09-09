@@ -106,7 +106,7 @@
     mounted() {
       axios
         .get('http://p.vuegram.savayer.space')
-        .then(response => (this.posts = response));
+        .then(response => (this.posts = response.data));
     },
     components: {
       PhoneBody1,
