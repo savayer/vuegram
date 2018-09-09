@@ -4,16 +4,24 @@
       <div class="phone-header">
         <img src="./images/vue_gram_logo_cp.png" />
         <div v-if="step !== 1" class="cancel-cta" @click="goToHome">Cancel</div>
-        <div v-if="step === 2" class="next-cta" @click="step++">Next</div>
-        <div v-if="step === 3" class="next-cta" @click="sharePost">Share</div>
+        <div v-if="step === 2 || step === 3" class="next-cta" @click="step++">Next</div>
+        <div v-if="step === 4" class="next-cta" @click="sharePost">Share</div>
       </div>
-      <phone-body 
+      <phone-body1 
+        v-if="step !== 4"
         :posts="posts"
         :filters="filters" 
         :step="step" 
         :image="image"
         :selectedFilter="selectedFilter"
         v-model="caption"  
+      />
+      <phone-body2
+        v-if="step == 4"
+        :step="step"
+        :image="image"
+        :selectedFilter="selectedFilter"
+        v-model="username"
       />
       <div class="phone-footer">
         <div class="home-cta">
@@ -32,7 +40,8 @@
 </template>
 
 <script>
-  import PhoneBody from "./components/PhoneBody.vue";
+  import PhoneBody1 from "./components/PhoneBody1.vue";
+  import PhoneBody2 from "./components/PhoneBody2.vue";
   import EventBus from "./event-bus.js";
 
   import posts from './data/posts'
@@ -47,7 +56,8 @@
         step: 1,
         selectedFilter: '',
         image: '',
-        caption: ''
+        caption: '',
+        username: ''
       }
     },
     created() {
@@ -76,8 +86,11 @@
         this.step = 1;
       },
       sharePost() {
+        if (this.username.length < 3) {
+          return;
+        }
         const post = {
-          username: 'anonim',
+          username: this.username,
           userImage: 'https://igconf.ru/2017/img/logo_anonim.png',
           postImage: this.image,
           likes: 0,
@@ -90,7 +103,8 @@
       }
     },
     components: {
-      PhoneBody
+      PhoneBody1,
+      PhoneBody2
     },
   };
 </script>
