@@ -44,14 +44,15 @@
   import PhoneBody2 from "./components/PhoneBody2.vue";
   import EventBus from "./event-bus.js";
 
-  import posts from './data/posts'
+ // import posts from './data/posts'
+  import axios from 'axios'
   import filters from './data/filters'
 
   export default {
     name: "app",
     data() {
       return {
-        posts,
+        posts: [],
         filters,
         step: 1,
         selectedFilter: '',
@@ -101,6 +102,11 @@
         this.posts.unshift(post);
         this.goToHome();
       }
+    },
+    mounted() {
+      axios
+        .get('http://p.vuegram.savayer.space')
+        .then(response => (this.posts = response));
     },
     components: {
       PhoneBody1,
