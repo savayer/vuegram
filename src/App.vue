@@ -100,19 +100,18 @@
           caption: this.caption,
           filter: this.selectedFilter
         };
-        const body = JSON.stringify(post);
-        
+                
         this.posts.unshift(post);
         this.goToHome();
 
-        axios.post('http://p.vuegram.savayer.space', body)
+        axios.post('http://vuegram.savayer.space/handler/', post)
           .then(response => {})
           .catch(e => { this.errors.push(e) })
       }
     },
     mounted() {
       axios
-        .get('http://p.vuegram.savayer.space')
+        .get('http://vuegram.savayer.space/handler/')
         .then(response => (this.posts = response.data));
     },
     components: {
