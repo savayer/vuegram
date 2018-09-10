@@ -46,6 +46,7 @@
 
  // import posts from './data/posts'
   import axios from 'axios'
+  import $ from 'jquery'
   import filters from './data/filters'
 
   export default {
@@ -96,22 +97,36 @@
           userImage: 'https://igconf.ru/2017/img/logo_anonim.png',
           postImage: this.image,
           likes: 0,
-          hasBeenLiked: false,
+          hasBeenLiked: +false,
           caption: this.caption,
-          filter: this.selectedFilter
+          filter: this.selectedFilter ? this.selectedFilter : 'normal'
         };
                 
         this.posts.unshift(post);
         this.goToHome();
 
-        axios.post('http://vuegram.savayer.space/handler/', post)
+        /* axios.post('http://p.vuegram.savayer.space/post', post)
           .then(response => {})
-          .catch(e => { this.errors.push(e) })
+          .catch(e => { this.errors.push(e) }) */
+/*         axios({
+          method: 'post',
+          url: 'http://p.vuegram.savayer.space/post/index.php',
+          data: post,
+          withCredentials: true,
+          headers: {'X-Requested-With': 'XMLHttpRequest'}
+        })
+        .then(response => {})
+        .catch(e => { this.errors.push(e) })  */
+        $.ajax({ //i dont know why axios doesn't work....
+          url: 'http://p.vuegram.savayer.space/post/index.php',
+          type: 'post',
+          data: post
+        })
       }
     },
     mounted() {
       axios
-        .get('http://vuegram.savayer.space/handler/')
+        .get('http://p.vuegram.savayer.space/')
         .then(response => (this.posts = response.data));
     },
     components: {
