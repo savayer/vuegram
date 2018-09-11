@@ -118,7 +118,7 @@
         .then(response => {})
         .catch(e => { this.errors.push(e) })  */
         $.ajax({ //i dont know why axios doesn't work....
-          url: 'http://p.vuegram.savayer.space/post/index.php',
+          url: 'https://p.vuegram.savayer.space/post/index.php',
           type: 'post',
           data: post
         })
@@ -126,7 +126,7 @@
     },
     mounted() {
       axios
-        .get('http://p.vuegram.savayer.space/')
+        .get('https://p.vuegram.savayer.space/')
         .then(response => (this.posts = response.data));
     },
     components: {
