@@ -36,7 +36,7 @@ export default {
   },
   computed: {
     pageCount() {      
-      return Math.floor(this.posts.length / this.countShowedPosts) - 1;
+      return Math.ceil(this.posts.length / this.countShowedPosts)-1;
     },
     partPaginatedData() {      
       const start = this.pageNumber * this.countShowedPosts;
