@@ -105,23 +105,31 @@
         this.posts.unshift(post);
         this.goToHome();
 
-        /* axios.post('http://p.vuegram.savayer.space/post', post)
+        let form_data = new FormData();
+        for ( let key in post ) {
+            form_data.append(key, post[key]);
+        }
+        axios.post('https://p.vuegram.savayer.space/post/index.php', form_data)
           .then(response => {})
-          .catch(e => { this.errors.push(e) }) */
-/*         axios({
-          method: 'post',
-          url: 'http://p.vuegram.savayer.space/post/index.php',
-          data: post,
-          withCredentials: true,
-          headers: {'X-Requested-With': 'XMLHttpRequest'}
-        })
-        .then(response => {})
-        .catch(e => { this.errors.push(e) })  */
-        $.ajax({ //i dont know why axios doesn't work....
+          .catch(e => { this.errors.push(e) })
+         
+        /* $.ajax({ it works
           url: 'https://p.vuegram.savayer.space/post/index.php',
           type: 'post',
           data: post
-        })
+        }) */
+        
+        /* //it works!
+        let form_data = new FormData();
+        for ( let key in post ) {
+            form_data.append(key, post[key]);
+        }
+        fetch('https://p.vuegram.savayer.space/post/index.php', {
+          method: 'post',
+          body: form_data,
+          mode: 'cors'
+        }) */
+        
       }
     },
     mounted() {
