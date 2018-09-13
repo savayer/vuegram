@@ -46,7 +46,6 @@
 
  // import posts from './data/posts'
   import axios from 'axios'
-  import $ from 'jquery'
   import filters from './data/filters'
 
   export default {
@@ -94,7 +93,7 @@
         }
         const post = {
           username: this.username,
-          userImage: 'https://igconf.ru/2017/img/logo_anonim.png',
+          userImage: 'https://vuegram.savayer.space/img/logo_anonim.png',
           postImage: this.image,
           likes: 0,
           hasBeenLiked: +false,
@@ -109,21 +108,16 @@
         for ( let key in post ) {
             form_data.append(key, post[key]);
         }
-        axios.post('https://p.vuegram.savayer.space/post/index.php', form_data)
-          .then(response => {})
+        axios.post('https://p.vuegram.savayer.space/post/index.php', form_data)        
           .catch(e => { this.errors.push(e) })
          
-        /* $.ajax({ it works
+        /* $.ajax({
           url: 'https://p.vuegram.savayer.space/post/index.php',
           type: 'post',
           data: post
         }) */
         
-        /* //it works!
-        let form_data = new FormData();
-        for ( let key in post ) {
-            form_data.append(key, post[key]);
-        }
+        /* 
         fetch('https://p.vuegram.savayer.space/post/index.php', {
           method: 'post',
           body: form_data,
