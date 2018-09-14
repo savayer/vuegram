@@ -1,35 +1,28 @@
 <template>
     <div class="phone-body">
         <div v-if="step === 1" class="feed" v-dragscroll.y>
-            <!-- <vuegram-post
-              v-for="(post, index) in posts" 
-              :key="index"
-              :post="post"
-            /> -->
-
+            <!-- <vuegram-post v-for="(post, index) in posts" :key="index" :post="post" /> -->
             <vuegram-posts
               :posts="posts"
             />
-            
         </div>
         <div v-if="step === 2">
           <div class="selected-image"
-               :class="selectedFilter"
-               :style="{ backgroundImage: 'url(' + image + ')' }">
+               :class="getFilter"
+               :style="{ backgroundImage: 'url(' + getImage + ')' }">
           </div>
           <div class="filter-container" v-dragscroll.x>
             <filter-type
               v-for="(filter, indexFilter) in filters"
               :key="indexFilter"
               :filter="filter"
-              :image="image"
             />
           </div>
         </div>
         <div v-if="step === 3">
           <div class="selected-image"
-               :class="selectedFilter"
-               :style="{ backgroundImage: 'url(' + image + ')' }">
+               :class="getFilter"
+               :style="{ backgroundImage: 'url(' + getImage + ')' }">
           </div>
           <div class="caption-container">
             <textarea class="caption-input"
@@ -51,11 +44,19 @@ export default {
   name: "PhoneBody",
   props: {
     posts: Array,
-    filters: Array,
-    step: Number,
-    image: String,
-    selectedFilter: String,
+    step: Number, 
     value: String
+  },
+  computed: {
+    getFilter() {    
+      return this.$store.getters.getFilter
+    },
+    filters() {
+      return this.$store.getters.getFiltersArray
+    },
+    getImage() {
+      return this.$store.getters.getImage
+    }
   },
   components: {
     VuegramPosts,

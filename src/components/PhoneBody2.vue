@@ -1,8 +1,8 @@
 <template>
     <div class="phone-body">
       <div class="selected-image"
-            :class="selectedFilter"
-            :style="{ backgroundImage: 'url(' + image + ')' }">
+            :class="getFilter"
+            :style="{ backgroundImage: 'url(' + getImage + ')' }">
       </div>
       <div class="caption-container">
         <input class="input"
@@ -18,11 +18,17 @@
 <script>
 export default {
   name: "PhoneBody2",
-  props: {    
+  props: {
     step: Number,
-    image: String,
-    selectedFilter: String,
     value: String
+  },
+  computed: {
+    getFilter() {
+      return this.$store.getters.getFilter;
+    },  
+    getImage() {
+      return this.$store.getters.getImage;
+    }
   }
 };
 </script>

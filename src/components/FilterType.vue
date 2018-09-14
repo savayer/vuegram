@@ -3,27 +3,26 @@
     <p>{{filter.name}}</p>
     <div class="img"
       :class="filter.name"
-      :style="{ backgroundImage: 'url(' + image + ')' }"
-      @click="selectFilter">
+      :style="{ backgroundImage: 'url(' + getImage + ')' }"
+      @click="selectFilter(filter.name)">
     </div> 
   </div>
 </template>
 
 <script>
-import EventBus from "../event-bus.js"
-
 export default {
   name: "FilterType",
   props: {
-    filter: Object,
-    image: String,
-    selectedFilter: String
+    filter: Object
+  },
+  computed: {
+    getImage() {
+      return this.$store.getters.getImage
+    }
   },
   methods: {
-    selectFilter() {
-      EventBus.$emit(
-       "filter-selected", { filter: this.filter.name }
-      );
+    selectFilter(filter) {
+      this.$store.dispatch('setFilter', filter);
     }
   }
 };

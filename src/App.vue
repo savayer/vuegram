@@ -10,17 +10,12 @@
       <phone-body1 
         v-if="step !== 4"
         :posts="posts"
-        :filters="filters" 
         :step="step" 
-        :image="image"
-        :selectedFilter="selectedFilter"
         v-model="caption"  
       />
       <phone-body2
         v-if="step == 4"
         :step="step"
-        :image="image"
-        :selectedFilter="selectedFilter"
         v-model="username"
       />
       <div class="phone-footer">
@@ -42,30 +37,18 @@
 <script>
   import PhoneBody1 from "./components/PhoneBody1.vue";
   import PhoneBody2 from "./components/PhoneBody2.vue";
-  import EventBus from "./event-bus.js";
-
- // import posts from './data/posts'
   import axios from 'axios'
-  import filters from './data/filters'
 
   export default {
     name: "app",
     data() {
       return {
         posts: [],
-        filters,
         step: 1,
-        selectedFilter: '',
-        image: '',
         caption: '',
         username: '',
         errors: []
       }
-    },
-    created() {
-      EventBus.$on("filter-selected", evt => {
-        this.selectedFilter = evt.filter;
-      });
     },
     methods: {
       uploadImage(e) {
@@ -75,15 +58,17 @@
         const reader = new FileReader();
         reader.readAsDataURL(files[0]);
         reader.onload = e => {
-          this.image = e.target.result;
+          this.setImage(e.target.result)
           this.step = 2;
         };
 
         document.querySelector("#file").value = "";
       },
+      setImage(image) {
+        this.$store.dispatch('setImage', image)
+      },
       goToHome() {
         this.image = '';
-        this.selectedFilter = '';
         this.caption = '';
         this.step = 1;
       },
@@ -94,11 +79,11 @@
         const post = {
           username: this.username,
           userImage: 'https://p.vuegram.savayer.space/img/logo_anonim.png',
-          postImage: this.image,
+          postImage: this.$store.getters.getImage,
           likes: 0,
           hasBeenLiked: +false,
           caption: this.caption,
-          filter: this.selectedFilter ? this.selectedFilter : 'normal'
+          filter: this.$store.getters.getFilter
         };
                 
         this.posts.unshift(post);
@@ -108,10 +93,10 @@
         for ( let key in post ) {
             form_data.append(key, post[key]);
         }
-        axios.post('https://p.vuegram.savayer.space/post/index.php', form_data)        
+        axios.post('https://p.vuegram.savayer.space/post/index.php', form_data)
           .catch(e => { this.errors.push(e) })
          
-        /* $.ajax({
+        /* $.ajax({ 
           url: 'https://p.vuegram.savayer.space/post/index.php',
           type: 'post',
           data: post
