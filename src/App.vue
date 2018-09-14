@@ -93,7 +93,7 @@
         }
         const post = {
           username: this.username,
-          userImage: 'https://vuegram.savayer.space/img/logo_anonim.png',
+          userImage: 'https://p.vuegram.savayer.space/img/logo_anonim.png',
           postImage: this.image,
           likes: 0,
           hasBeenLiked: +false,
@@ -117,8 +117,7 @@
           data: post
         }) */
         
-        /* 
-        fetch('https://p.vuegram.savayer.space/post/index.php', {
+        /* fetch('https://p.vuegram.savayer.space/post/index.php', {
           method: 'post',
           body: form_data,
           mode: 'cors'
