@@ -93,7 +93,7 @@
         }
         const post = {
           username: this.username,
-          userImage: 'https://p.vuegram.savayer.space/img/logo_anonim.png',
+          userImage: 'https://p.vuegram.savayer.me/img/logo_anonim.png',
           postImage: this.image,
           likes: 0,
           hasBeenLiked: +false,
@@ -127,7 +127,7 @@
     },
     mounted() {
       axios
-        .get('https://p.vuegram.savayer.space/')
+        .get('https://p.vuegram.savayer.me/')
         .then(response => (this.posts = response.data));
     },
     components: {
