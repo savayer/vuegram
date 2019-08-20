@@ -108,16 +108,16 @@
         for ( let key in post ) {
             form_data.append(key, post[key]);
         }
-        axios.post('https://p.vuegram.savayer.space/post/index.php', form_data)        
+        axios.post('https://p.vuegram.savayer.me/post/index.php', form_data)        
           .catch(e => { this.errors.push(e) })
          
         /* $.ajax({
-          url: 'https://p.vuegram.savayer.space/post/index.php',
+          url: 'https://p.vuegram.savayer.me/post/index.php',
           type: 'post',
           data: post
         }) */
         
-        /* fetch('https://p.vuegram.savayer.space/post/index.php', {
+        /* fetch('https://p.vuegram.savayer.me/post/index.php', {
           method: 'post',
           body: form_data,
           mode: 'cors'
