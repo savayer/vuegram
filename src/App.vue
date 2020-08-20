@@ -93,7 +93,7 @@
         }
         const post = {
           username: this.username,
-          userImage: 'https://p.vuegram.savayer.me/img/logo_anonim.png',
+          userImage: `${process.env.VUE_APP_API_URL}/img/logo_anonim.png`,
           postImage: this.image,
           likes: 0,
           hasBeenLiked: +false,
@@ -108,26 +108,14 @@
         for ( let key in post ) {
             form_data.append(key, post[key]);
         }
-        axios.post('https://p.vuegram.savayer.me/post/index.php', form_data)        
+        axios.post(`${process.env.VUE_APP_API_URL}/post/index.php`, form_data)        
           .catch(e => { this.errors.push(e) })
-         
-        /* $.ajax({
-          url: 'https://p.vuegram.savayer.me/post/index.php',
-          type: 'post',
-          data: post
-        }) */
-        
-        /* fetch('https://p.vuegram.savayer.me/post/index.php', {
-          method: 'post',
-          body: form_data,
-          mode: 'cors'
-        }) */
         
       }
     },
     mounted() {
       axios
-        .get('https://p.vuegram.savayer.me/')
+        .get(process.env.VUE_APP_API_URL)
         .then(response => (this.posts = response.data));
     },
     components: {

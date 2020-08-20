@@ -46,11 +46,20 @@ export default {
     }
   },
   methods: {
+    scrollToTop() {
+      console.log('top')
+      window.scrollTo({
+        behavior: 'smooth',
+        top: 0
+      })
+    },
     nextPage() {
       this.pageNumber++;
+      this.scrollToTop()
     },
     prevPage() {
       this.pageNumber--;
+      this.scrollToTop()
     }
   },
   components: {
