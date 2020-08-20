@@ -1,6 +1,6 @@
 # vuegram
 
-[demo](http://vuegram.savayer.me)
+[demo](http://vuegram.savayer.space)
 
 ## Project setup
 ```
